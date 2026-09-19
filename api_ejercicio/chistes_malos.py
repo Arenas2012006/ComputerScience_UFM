@@ -1,4 +1,3 @@
-
 import requests
 seguir = True 
  
@@ -20,5 +19,4 @@ while seguir:
  
 print("Listo, hasta luego")
  
-
 
