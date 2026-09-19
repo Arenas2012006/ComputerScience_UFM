@@ -221,5 +221,6 @@ __marimo__/
 
 # otros
 api_key.py
+api_key_spotify.py
 
 
