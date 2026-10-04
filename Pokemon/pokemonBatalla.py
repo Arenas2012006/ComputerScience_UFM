@@ -7,52 +7,35 @@ def esperar():
     sleep(1)
 
 
+ATAQUES = { 
+    "electrico": "Impactrueno",
+    "planta": "Latigo cepa", 
+    "fuego": "Ascuas",
+    "agua": "Pistola agua",
+}
 
-def elegir_pokemon(nombre: str, tipo: str, hp: int, ad: int) -> dict:
+
+TABLA_TIPOS = {
+    'electrico': {'electrico': 0.5, 'planta': 0.5, 'fuego': 1.0, 'agua': 2.0},
+    'planta':    {'electrico': 1.0, 'planta': 0.5, 'fuego': 0.5, 'agua': 2.0},
+    'fuego':     {'electrico': 1.0, 'planta': 2.0, 'fuego': 0.5, 'agua': 0.5},
+    'agua':      {'electrico': 1.0, 'planta': 0.5, 'fuego': 2.0, 'agua': 0.5},
+}
+
+
+PROB_CRITICO = 0.10    
+MULT_CRITICO = 1.5
+PROB_FALLO = 0.10
+
+
+def crear_pokemon(nombre: str, tipo: str, hp: int, ad: int) -> dict:
     return {
-        "nombre": nombre.capitalize(),
-        "tipo": tipo.capitalize(),
-        "hp": hp,
-        "ad": ad
+        'nombre': nombre.capitalize(),
+        'tipo': tipo.capitalize(),
+        'hp': hp,
+        'hp_max': hp,
+        'ad': ad,
     }
-
-
-def damage(pokemon: dict, hp_lost: int):
-    pokemon["hp"] = pokemon["hp"] - hp_lost
-
-
-
-def attack(atacante: dict, rival: dict):
- 
-    if atacante['tipo'] == 'electrico':
-        ataque = 'Impactrueno'
-    elif atacante['tipo'] == 'planta':
-        ataque = 'látigo cepa'
-    elif atacante['tipo'] == 'fuego':
-        ataque = 'ascuas'
-    else:
-        ataque = 'pistola agua'
- 
-    damage(rival, atacante['ad'])
- 
-    print(f"\n({atacante['nombre']}) Ataca con {ataque} | -{atacante['ad']}")
-
-
-
-pikachu = elegir_pokemon('pikachu', 'electrico', 35, 55)
-bulbasaur = elegir_pokemon('bulbasaur', 'planta', 45, 65)
-charmander = elegir_pokemon('charmander', 'fuego', 39, 60)
-squirtle = elegir_pokemon('squirtle', 'agua', 44, 50)
-
-
-
-
-
-
-
-
-
-
 
 
 
