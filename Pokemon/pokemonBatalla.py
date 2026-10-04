@@ -31,7 +31,7 @@ PROB_FALLO = 0.10
 def crear_pokemon(nombre: str, tipo: str, hp: int, ad: int) -> dict:
     return {
         'nombre': nombre.capitalize(),
-        'tipo': tipo.capitalize(),
+        'tipo': tipo,
         'hp': hp,
         'hp_max': hp,
         'ad': ad,
@@ -66,20 +66,53 @@ def attack(atacante: dict, rival: dict):
     damage(rival, dano)
 
     if es_critico:
-        print('¡Golpe crítico!')
+        print('¡Golpe critico!')
     if efectividad > 1:
-        print('¡Es súper eficaz!')
+        print('¡Es super eficaz!')
     elif efectividad < 1:
         print('No es muy eficaz...')
 
     print(f"-{dano} HP para {rival['nombre']}")
 
 
-    
+pikachu = crear_pokemon('pikachu', 'electrico', 70, 55)
+bulbasaur = crear_pokemon('bulbasaur', 'planta', 90, 65)
+charmander = crear_pokemon('charmander', 'fuego', 78, 60)
+squirtle = crear_pokemon('squirtle', 'agua', 88, 50)
+
+pokemon_posibles = [pikachu, bulbasaur, charmander, squirtle]
+poke_1, poke_2 = sample(pokemon_posibles, 2)
+
+print('\n ------ POKEMON SELECCIONADOS ------')
+
+esperar()
+print(f"\nPokemon 1: {poke_1['nombre']} ({poke_1['tipo']}) (HP: {poke_1['hp']} | AD: {poke_1['ad']})")
+print(f"Pokemon 2: {poke_2['nombre']} ({poke_2['tipo']}) (HP: {poke_2['hp']} | AD: {poke_2['ad']})")
+
+while True:
+    esperar()
+    attack(poke_1, poke_2)
+
+    if poke_2['hp'] <= 0:
+        print(f"\n{poke_2['nombre']} se debilito.")
+        print(f"GAME OVER: {poke_1['nombre']} vencio a {poke_2['nombre']}")
+        break
+
+    esperar()
+    attack(poke_2, poke_1)
+    if poke_1['hp'] <= 0:
+        print(f"\n{poke_1['nombre']} se debilito.")
+        print(f"GAME OVER: {poke_2['nombre']} vencio a {poke_1['nombre']}")
+        break
+
+    esperar()
+    print('\nHPs restantes')
+    print(f"{poke_1['nombre']}: {poke_1['hp']}/{poke_1['hp_max']}")
+    print(f"{poke_2['nombre']}: {poke_2['hp']}/{poke_2['hp_max']}")
 
 
 
-
+    pass
 
 
 
