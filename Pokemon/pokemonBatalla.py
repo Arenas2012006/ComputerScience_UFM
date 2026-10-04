@@ -1,4 +1,4 @@
-from random import choice 
+from random import choice, random, sample 
 from time import sleep
 
 
@@ -36,6 +36,47 @@ def crear_pokemon(nombre: str, tipo: str, hp: int, ad: int) -> dict:
         'hp_max': hp,
         'ad': ad,
     }
+
+
+def damage(pokemon: dict, hp_lost: int):
+    pokemon['hp'] = max(0, pokemon['hp'] - hp_lost)
+
+
+def calcular_efectividad(tipo_atacante: str, tipo_defensor: str) -> float:
+    return TABLA_TIPOS[tipo_atacante][tipo_defensor]
+
+
+def attack(atacante: dict, rival: dict):
+    ataque = ATAQUES[atacante['tipo']]
+    print(f"\n({atacante['nombre']}) usa {ataque}!")
+
+    if random() < PROB_FALLO:
+        print(f"¡El ataque de {atacante['nombre']} falló!")
+        return
+
+
+    efectividad = calcular_efectividad(atacante['tipo'], rival['tipo'])
+    dano = atacante['ad'] * efectividad
+
+    es_critico = random() < PROB_CRITICO
+    if es_critico:
+        dano = dano * MULT_CRITICO
+ 
+    dano = int(dano)
+    damage(rival, dano)
+
+    if es_critico:
+        print('¡Golpe crítico!')
+    if efectividad > 1:
+        print('¡Es súper eficaz!')
+    elif efectividad < 1:
+        print('No es muy eficaz...')
+
+    print(f"-{dano} HP para {rival['nombre']}")
+
+
+    
+
 
 
 
